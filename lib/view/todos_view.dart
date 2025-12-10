@@ -1,52 +1,52 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_application_1/repo/todos_repo.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_application_1/repo/todos_repo.dart';
 
-class TodosView extends StatefulWidget {
-  const TodosView({super.key});
+// class TodosView extends StatefulWidget {
+//   const TodosView({super.key});
 
-  @override
-  State<TodosView> createState() => _TodosViewState();
-}
+//   @override
+//   State<TodosView> createState() => _TodosViewState();
+// }
 
-class _TodosViewState extends State<TodosView> {
-  List<Map<String, dynamic>>? response;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("OUr todos result")),
-      body: Column(
-        children: [
-          FutureBuilder(
-            future: TodosRepo().getTodoNotes(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
-              }
-              if (!snapshot.hasData) {
-                return Text("no data found");
-              }
-              if (snapshot.hasError) {
-                return Text("get error");
-              }
+// class _TodosViewState extends State<TodosView> {
+//   List<Map<String, dynamic>>? response;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text("OUr todos result")),
+//       body: Column(
+//         children: [
+//           FutureBuilder(
+//             future: TodosRepo().getTodoNotes(),
+//             builder: (context, snapshot) {
+//               if (snapshot.connectionState == ConnectionState.waiting) {
+//                 return CircularProgressIndicator();
+//               }
+//               if (!snapshot.hasData) {
+//                 return Text("no data found");
+//               }
+//               if (snapshot.hasError) {
+//                 return Text("get error");
+//               }
 
-              final data = snapshot.data;
-              return Expanded(
-                child: ListView.builder(
-                  itemCount: data?.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    final result = data?[index];
-                    return ListTile(
-                      title: Text(result?["userId"].toString() ?? ''),
-                      subtitle: Text(result?["title"].toString() ?? ''),
-                    );
-                  },
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
+//               final data = snapshot.data;
+//               return Expanded(
+//                 child: ListView.builder(
+//                   itemCount: data?.length,
+//                   shrinkWrap: true,
+//                   itemBuilder: (context, index) {
+//                     final result = data?[index];
+//                     return ListTile(
+//                       title: Text(result?["userId"].toString() ?? ''),
+//                       subtitle: Text(result?["title"].toString() ?? ''),
+//                     );
+//                   },
+//                 ),
+//               );
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
