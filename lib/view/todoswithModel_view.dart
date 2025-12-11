@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/model/todos_model.dart';
 import 'package:flutter_application_1/repo/api_repo.dart';
 
-class Apiscreen extends StatefulWidget {
-  const Apiscreen({super.key});
+class ApiwithModelscreen extends StatefulWidget {
+  const ApiwithModelscreen({super.key});
 
   @override
-  State<Apiscreen> createState() => _ApiscreenState();
+  State<ApiwithModelscreen> createState() => _ApiscreenState();
 }
 
-class _ApiscreenState extends State<Apiscreen> {
+class _ApiscreenState extends State<ApiwithModelscreen> {
   List<Map<String, dynamic>>? result;
   final idcontroler = TextEditingController();
 
-  Future<List<Map<String, dynamic>>> getdata(String number) async {
-    List<Map<String, dynamic>>? result = await ApiRepo().getchats(
+  Future<List<TodosModel>?> getdata(String number) async {
+    List<TodosModel>? result = await ApiRepo().getchatsWithModel(
       idcontroler.text,
     );
-    return result ?? [];
+    return result ?? null;
   }
 
   @override
@@ -62,8 +63,13 @@ class _ApiscreenState extends State<Apiscreen> {
                   itemBuilder: (context, index) {
                     final record = chat?[index];
                     return ListTile(
-                      title: Text(record?["userId"].toString() ?? ""),
-                      subtitle: Text(record?["title"].toString() ?? ""),
+                      title: Text(record?.title ?? ""),
+                      subtitle: Column(
+                        children: [
+                          Text(record?.completed.toString() ?? ""),
+                          Text(record?.id.toString() ?? ""),
+                        ],
+                      ),
                     );
                   },
                 ),
