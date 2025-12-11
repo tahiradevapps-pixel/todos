@@ -1,3 +1,3 @@
 class AppUrls {
-  static const String getTodos = "https://jsonplaceholder.typicode.com/todos";
+  static const String getApi = "https://jsonplaceholder.typicode.com/todos";
 }
