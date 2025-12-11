@@ -9,6 +9,8 @@ class TodosView extends StatefulWidget {
 }
 
 class _TodosViewState extends State<TodosView> {
+  // List<Map<String, dynamic>>? response;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,26 +20,29 @@ class _TodosViewState extends State<TodosView> {
           FutureBuilder(
             future: TodosRepo().getTodoNotes(),
             builder: (context, Snapshot) {
-              if(Snapshot.connectionState == ConnectionState.waiting ){
+              if (Snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
               }
               if (!Snapshot.hasData) {
                 return Text(' no data found');
               }
-              if (Snapshot.hasData) {
-                return Text(' data found');
+              if (Snapshot.hasError) {
+                return Text("get error");
               }
               final data = Snapshot.data;
-              return ListView.builder( 
-                itemCount: data?.length ,
-                itemBuilder: (context , index){
+              return Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: data?.length,
+                  itemBuilder: (context, index) {
                     final result = data?[index];
-                return ListTile(
-                      title: Text(result ?["userId"].toString() ??'') ,
+                    return ListTile(
+                      title: Text(result?["userId"].toString() ?? ''),
                       subtitle: Text(result?["title"].toString() ?? ''),
-
-                );
-              });
+                    );
+                  },
+                ),
+              );
             },
           ),
         ],
@@ -45,8 +50,6 @@ class _TodosViewState extends State<TodosView> {
     );
   }
 }
-
-
 
 // import 'package:flutter/material.dart';
 // import 'package:flutter_application_1/repo/todos_repo.dart';
