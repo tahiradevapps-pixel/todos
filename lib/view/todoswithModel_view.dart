@@ -8,7 +8,6 @@ class ApiwithModelscreen extends StatefulWidget {
   @override
   State<ApiwithModelscreen> createState() => _ApiscreenState();
 }
-
 class _ApiscreenState extends State<ApiwithModelscreen> {
   List<Map<String, dynamic>>? result;
   final idcontroler = TextEditingController();
